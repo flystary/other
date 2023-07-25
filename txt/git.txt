@@ -1,0 +1,38 @@
+配置文件
+设置设置git 用户权限时，需要了解git的配置文件（优先级从高到低）
+1、优先级最高的是.git文件下的config文件。他会覆盖其他配置文件中相同的配置，只对他所在的文档库生效
+2、登录账户的home directory中的.gitconfig文件。这个配置仅对当前账号有效
+3、优先级最低的是git程序的安装文件夹中的etc\gitconfig文件。属于公共配置，对所有登录的账号和所有git文档库都有效
+
+git config 用法
+查看配置文件
+
+复制代码
+#显示三个配置文件中的所有设置项，优先显示优先级最低的设置
+git config -l
+#显示git安装文件夹的etc\gitconfig的内容
+git config --system -l
+#显示登录账号的home directory中的.git/config文件夹的设置
+git config --global -l
+
+设置git用户信息
+# 将账号、邮箱添加到文档库中，需要进入对应的项目文件中执行。
+git config user.name 'mumu'
+git config user.email 'mumu@163.com'
+#将账号、邮箱添加到home directory 的配置文件中
+git config --global user.name 'mumu'
+git config --global user.email 'mumu@163.com'
+#将账号、邮箱添加到git安装文件夹 的配置文件中
+git config --system user.name 'mumu'
+git config --system user.email 'mumu@163.com'
+
+
+查看所有分支
+git branch   -a
+新建本地分支并切换到新分支
+git checkout -b sdwan-8.1.0
+将本地分支push到云端
+git push -u origin sdwan-8.1.0
+
+
+

@@ -1,0 +1,17 @@
+1. 模糊匹配
+使用if         {if($1~/zhengxh/) print $0}
+不用if        '$0 ~ /zhengxh/'
+awk '$0~/zhengxh/' filename
+或awk '{if($0~/zhengxh/) print $0} filename    #输出含有zhengxh的行
+或awk '/zhengxh/' filename
+2. 精确匹配
+$n=="chars"
+awk '$1=="zhengxh" {print $0}' filename        #输出第一列等于zhengxh的行
+3. 反向匹配
+$n !~ /adf/
+awk '$1 !~ /zhengxh/ {print $0}' filename    #输出第一列不是zhengxh的行
+4. 大小写匹配
+awk '/[zZ]hengxh/'  filename     #匹配含有zhengxh 或是Zhengxh的字符串
+5. 使用或运算
+awk '$0 ~ /(zhengxh|hover)/' filename     #查找含有zhengxh或hover字串的行
+或awk '{if($0~/zhengxh/ OR $0~/hover/) print $0}' filename

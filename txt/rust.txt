@@ -1,0 +1,95 @@
+set RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
+set RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
+
+cargo clippy: 类似eslint，lint工具检查代码可以优化的地方
+cargo fmt: 类似go fmt，代码格式化
+cargo tree: 查看第三方库的版本和依赖关系
+cargo bench: 运行benchmark(基准测试,性能测试)
+cargo udeps(第三方): 检查项目中未使用的依赖
+另外 cargo build/run --release 使用 release 编译会比默认的 debug 编译性能提升 10 倍以上，但是 release 缺点是编译速度较慢，而且不会显示 panic backtrace 的具体行号
+
+#减小编译大小
+cargo build --release
+strip -s target/release/greeting
+
+通过修改默认优化等级方式减少体积，以cpu换空间，如果不是必要，建议不要改
+在Cargo.toml中新增下面配置
+[profile.release]
+opt-level = 'z'
+
+在Cargo.toml中新增下面配置
+[profile.release]
+lto = true
+
+
+vscode插件
+C/C++
+Code Runner
+Code Translate
+Git Project Manager
+Go
+Go Doc
+Go Nightly
+Native Debug
+Paste JSON as Code
+rust-analyzer
+crates
+Tabnine
+snippets
+Todo MD
+TOML Language Support
+[Deprecated] Debugger for Chrome
+Jinja
+Linux Themes for VS Code
+Remote - Containers
+Remote - SSH
+Remote - SSH: Editing Configuration Files
+Remote - WSL
+Remote Development
+Rust Syntax
+
+
+字体
+Consolas, 'Courier New', monospace
+
+
+https://github.com/luoshuqi/web-terminal.git
+https://github.com/dotcypress/wterm.git
+
+
+
+数值类型: 有符号整数 (i8, i16, i32, i64, isize)、 无符号整数 (u8, u16, u32, u64, usize) 、浮点数 (f32, f64)、以及有理数、复数
+字符串：字符串字面量和字符串切片 &str
+布尔类型： true和false
+字符类型: 表示单个Unicode字符，存储为4个字节
+单元类型: 即 () ，其唯一的值也是 ()
+
+长度	有符号类型	无符号类型
+8 位	      i8		u8
+16 位	      i16		u16
+32 位	      i32		u32
+64 位	      i64		u64
+128-位	      i128		u128
+视架构而定     isize		usize
+
+整形字面量
+数字字面量	示例
+十进制		98_222
+十六进制		0xff
+八进制		0o77
+二进制		0b1111_0000
+字节 (仅限于 u8)	b'A'
+
+
+栈和堆的核心目标就是为程序在运行时提供可供使用的内存空间。
+栈
+栈按照顺序存储值并以相反顺序取出值，这也被称作 后进先出。想象一下一叠盘子：当增加更多盘子时，把它们放在盘子堆的顶部，当需要盘子时，再从顶部拿走。不能从中间也不能从底部增加或拿走盘子！
+增加数据叫做 进栈，移出数据则叫做 出栈。
+
+因为上述的实现方式，栈中的所有数据都必须占用已知且固定大小的内存空间，假设数据大小是未知的，那么在取出数据时，你将无法取到你想要的数据。
+
+堆
+与栈不同，对于大小未知或者可能变化的数据，我们需要将它存储在堆上。
+当向堆上放入数据时，需要请求一定大小的内存空间。操作系统在堆的某处找到一块足够大的空位，把它标记为已使用，并返回一个表示该位置地址的 指针, 该过程被称为 在堆上分配内存，有时简称为 “分配”（allocating）。
+接着，该指针会被推入 栈 中，因为指针的大小是已知且固定的，在后续使用过程中，你将通过栈中的 指针，来获取数据在堆上的实际内存位置，进而访问该数据。
+

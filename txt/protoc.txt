@@ -1,0 +1,22 @@
+protoc本身并不支持Golang，需要额外安装对应的插件
+方法1，使用go install <module>@latest安装
+
+go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+1
+2
+方法2，在一个已经包含go.mod文件的项目里使用go get <module>
+
+go get google.golang.org/protobuf/cmd/protoc-gen-go
+go get google.golang.org/grpc/cmd/protoc-gen-go-grpc
+1
+2
+安装成功后，会在$GOPATH/bin目录下生成两个2进制文件
+protoc-gen-go
+protoc-gen-go-grpc
+
+
+export GOPATH=/data/go/
+export GOROOT=/usr/local/go
+export PATH=$PATH:$GOROOT/bin
+export PATH=$PATH:$GOPATH/bin

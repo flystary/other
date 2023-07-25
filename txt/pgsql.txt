@@ -1,0 +1,30 @@
+pgsql数据库实现导入导出（附sql示例）
+1. 导出表
+pg_dump -h 数据库ip -U 用户名 数据库名 -t 表名 >路径，例：
+pg_dump -h 127.0.0.1 -U sysdba data_center -t book >/data/book.sql
+2. 导入表
+psql -U 用户名 -d 数据库名 <路径，例：
+psql -U sysdba -d data_center </data/book.sql
+3. 导出数据库
+pg_dump -h 数据库ip -U 用户名 数据库名 >路径，例：
+pg_dump -h 127.0.0.1 -U sysdba data_center >/data/data_center.sql
+4. 导入数据库
+psql -U 用户名 数据库名 <路径，例：
+psql -U sysdba data_center </data/data_center.sql
+5. 压缩
+当导出的数据很大时，应使用xz压缩命令，该命令生成后缀为.xz的文件，例：
+xz data_center.sql
+此时会生成data_center.sql.xz文件
+6. 压缩文件导入数据库
+xzcat 压缩文件路径 | psql -h 数据库ip -U 用户名 数据库名，例：
+xzcat /data/data_center.sql.xz | psql -h 127.0.0.1 -U sysdba data_center
+7. pgsql恢复数据库中的文件（导入dmp文件）
+pg_restore -h ip -U 用户名 -d 数据库名 -v 文件路径，例：
+pg_restore -h 127.0.0.1 -U sysdba -d sjls -v /usr/postgres.dmp
+
+
+psql -U fenix fenix </data/fenix.sql
+
+psql -U alarak alarak</data/alarak.sql
+sed -i s/password/trust/g   /data/pgsql/data/pg_hba.conf
+chown postgres:postgres    /data/pgsql/data/pg_hba.conf

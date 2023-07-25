@@ -1,0 +1,13 @@
+mysql
+新建devops用户
+create user 'dev_ops'@'%' identified by 'dev_ops';
+新建devops数据库
+create database dev_ops character set utf8 collate utf8_bin;
+增加用户授权并刷新权限
+grant all privileges on dev_ops.* to 'dev_ops'@'%' identified by 'dev_ops';
+flush privileges;
+
+postgresql
+create user dev_ops with password 'password';
+create database dev_ops owner dev_ops; 
+grant all on database dev_ops to dev_ops; 
